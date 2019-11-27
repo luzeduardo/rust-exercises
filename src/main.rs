@@ -1,6 +1,24 @@
 fn main() {
+    testing_refactoring_struct_tuples();
 }
 
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+fn testing_refactoring_struct_tuples() {
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+    println!("\nAre of rectangle in pixels -> {}", area(&rect1));
+}
+
+fn area(rectangle: &Rectangle) -> u32 {
+    rectangle.width * rectangle.height
+}
+
+/*
 
 fn testing_owner_refs() {
     let s1 = gives_ownership();
@@ -21,14 +39,12 @@ fn testing_owner_refs() {
     println!("First: {}", txt);
 }
 
-
 fn testing_structs() {
-
     struct User {
         username: String,
         email: String,
         sign_in_count: u64,
-        active: bool
+        active: bool,
     };
 
     let mut user = User {
@@ -40,10 +56,9 @@ fn testing_structs() {
 
     user.sign_in_count = 2;
     println!("Count {}", user.sign_in_count);
-
 }
 
-fn first_word(s: & str) -> &str {
+fn first_word(s: &str) -> &str {
     let bytes = s.as_bytes();
     for (i, &item) in bytes.iter().enumerate() {
         if item == b' ' {
@@ -74,3 +89,4 @@ fn gives_ownership() -> String {
 fn takes_and_gives_back_ownership(a_string: String) -> String {
     a_string
 }
+ */
