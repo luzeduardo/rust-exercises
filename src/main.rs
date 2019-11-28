@@ -14,6 +14,14 @@ fn testing_refactoring_struct_tuples() {
     println!("\nAre of rectangle in pixels -> {}", area(&rect1));
 }
 
+impl Rectangle {
+    //defined as method in impl Rectangle Counttext  which receives self as ref
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+
+// defined as function
 fn area(rectangle: &Rectangle) -> u32 {
     rectangle.width * rectangle.height
 }
