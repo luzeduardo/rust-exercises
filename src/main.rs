@@ -11,13 +11,26 @@ fn testing_refactoring_struct_tuples() {
         width: 30,
         height: 50,
     };
-    println!("\nAre of rectangle in pixels -> {}", area(&rect1));
+    println!("\nArea of rectangle in pixels -> {}", area(&rect1));
+
+    let rect2 = Rectangle::square(2);
+    println!("\n Area in pixels -> {}", area(&rect2));
 }
 
 impl Rectangle {
     //defined as method in impl Rectangle Counttext  which receives self as ref
     fn area(&self) -> u32 {
         self.width * self.height
+    }
+
+    // associated functions are often used for constructors that return an instance of the struct
+    // it can resid into struct but are functions not methods due it do not have an instance of the
+    // struct to work with
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            height: size,
+        }
     }
 }
 
