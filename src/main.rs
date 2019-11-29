@@ -2,6 +2,7 @@ fn main() {
     testing_refactoring_struct_tuples();
 }
 
+#[derive(Debug)] //Adding Trait to support debug with {:?}
 struct Rectangle {
     width: u32,
     height: u32,
@@ -14,7 +15,9 @@ fn testing_refactoring_struct_tuples() {
     println!("\nArea of rectangle in pixels -> {}", area(&rect1));
 
     let rect2 = Rectangle::square(2);
-    println!("\n Area in pixels -> {}", area(&rect2));
+    println!("\nArea in pixels -> {}", area(&rect2));
+
+    println!("\nUsing supported Debug of a struct from a Trait-> {:?}", rect2);
 }
 
 impl Rectangle {
