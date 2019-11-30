@@ -1,5 +1,7 @@
 fn main() {
-    testing_refactoring_struct_tuples();
+    testing_takes_ownership();
+    
+    //testing_refactoring_struct_tuples();
 }
 
 #[derive(Debug)] //Adding Trait to support debug with {:?}
@@ -17,7 +19,10 @@ fn testing_refactoring_struct_tuples() {
     let rect2 = Rectangle::square(2);
     println!("\nArea in pixels -> {}", area(&rect2));
 
-    println!("\nUsing supported Debug of a struct from a Trait-> {:?}", rect2);
+    println!(
+        "\nUsing supported Debug of a struct from a Trait-> {:?}",
+        rect2
+    );
 }
 
 impl Rectangle {
@@ -41,6 +46,23 @@ impl Rectangle {
 fn area(rectangle: &Rectangle) -> u32 {
     rectangle.width * rectangle.height
 }
+
+fn testing_takes_ownership() {
+    let s = String::from("Some simple texti!"); //s goes into scope
+    takes_ownership(s); // s MOVES into function
+                        // so now it is no longer valid here
+
+    let x = 5;
+    makes_copy(x); // x would move but since it is a u32 which uses the STACK to handle this this known size required of memory it COPY, so x is valid below the function
+    println!("Integer after makes_copy -> {}", x);
+    //Trying to use s here will thown an compile exception
+}
+fn takes_ownership(somestring: String) {
+    println!("Inside takes_ownership -> {}", somestring);
+} // Here somestring goes out of the scope and the Drop Trait is called. Memory is freed.
+fn makes_copy(example_integer: u32) {
+    println!("Inside makes_copy-> {}", example_integer);
+} // The example_integer goes out of the scope
 
 /*
 
