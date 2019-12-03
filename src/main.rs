@@ -1,7 +1,7 @@
 fn main() {
-    testing_takes_ownership();
-    
+    // testing_takes_ownership();
     //testing_refactoring_struct_tuples();
+    //testing_dangle_error() 
 }
 
 #[derive(Debug)] //Adding Trait to support debug with {:?}
@@ -42,6 +42,17 @@ impl Rectangle {
     }
 }
 
+fn testing_dangle_error() {
+    let _ref_to_noth = dangle_error();
+}
+
+//throws error because I am trying to return a ref to and deallocated point of memory. 
+fn dangle_error() -> String {//it returns a ref to a string
+    let s = String::from("brilha brilha");
+    &s //it returns a ref to the string s but it is goes out of scope and is dropped
+        //One solution could be return s using move ownership out since nothing will be deallocated
+}
+
 // defined as function
 fn area(rectangle: &Rectangle) -> u32 {
     rectangle.width * rectangle.height
@@ -76,8 +87,6 @@ fn testing_owner_refs() {
 
     let mut s = String::from("HI");
     change(&mut s);
-
-    let _ref_to_noth = dangle();
 
     let word = String::from("Eusou alenda");
     let txt = first_word(&word);
@@ -114,10 +123,6 @@ fn first_word(s: &str) -> &str {
     &s[..]
 }
 
-fn dangle() -> String {
-    let s = String::from("brilha brilha");
-    s
-}
 
 fn change(s: &mut String) {
     s.push_str(", Old");
