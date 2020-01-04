@@ -2,6 +2,45 @@ fn main() {
     // testing_takes_ownership();
     //testing_refactoring_struct_tuples();
     //testing_dangle_error() 
+    testing_vector();
+}
+
+fn testing_vector() {
+    let mut ve: Vec<i32> = Vec::new();
+    ve.push(1);
+
+    println!("Simple vec {:?}", ve);
+
+    let mut v = vec![1 , 2 , 3];
+    v.push(4);
+
+    println!("Vec content: {:?}", v);
+    //both v and ve goes out of scope and is freed
+
+
+    //reading elements
+    let v2 = vec![1,2,3,4,5];
+    let third: &i32 = &v2[2];//using ref to access can throw panic at runtime 
+    println!("The third element is {}", third);
+
+    match v2.get(2) {//using get returns an Option<&T>
+        Some(third) => println!("Third is {}", third),
+        None => println!("There is not third element"),
+    }//match handles gracefully a non existant key with None
+
+
+    //iterate over unmutable vec
+    let v3 = vec![ 1, 2, 3, 4, 5];
+    for i in &v3 {
+        println!("{}", i);
+    }
+
+    //over mutable with changes
+    let mut vecmut = vec![1, 2, 3, 4];
+    for i in &mut vecmut {
+        *i += 500; // *i dereference operator to get value in i before we use
+    }
+    println!("{:?}", vecmut);
 }
 
 #[derive(Debug)] //Adding Trait to support debug with {:?}
@@ -49,8 +88,9 @@ fn testing_dangle_error() {
 //throws error because I am trying to return a ref to and deallocated point of memory. 
 fn dangle_error() -> String {//it returns a ref to a string
     let s = String::from("brilha brilha");
-    &s //it returns a ref to the string s but it is goes out of scope and is dropped
+    // &s //it returns a ref to the string s but it is goes out of scope and is dropped
         //One solution could be return s using move ownership out since nothing will be deallocated
+    s
 }
 
 // defined as function
