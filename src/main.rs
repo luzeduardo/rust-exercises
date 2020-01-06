@@ -2,7 +2,36 @@ fn main() {
     // testing_takes_ownership();
     //testing_refactoring_struct_tuples();
     //testing_dangle_error() 
-    testing_vector();
+    //testing_vector();
+    testing_strings();
+    //testing_internal_representation_of_string();
+}
+
+
+fn testing_internal_representation_of_string() {
+    let len = String::from("Hola").len();
+
+}
+
+fn testing_strings() {
+    let mut a = String::new();
+
+    let mut s = String::from("Test");
+    s.push_str(" appending string");
+    println!("{}", s);
+    let s1 = String::from("raise error if access by index");
+    //let h = s1[0];
+    //iterating of string with chars method
+    println!("iterating the string chars"); 
+    for g in "Ola".chars() {
+        println!("{}", g);
+    }
+
+    //iterating over the bytes
+    println!("iterating the bytes of the string in utf8"); 
+    for b in "Ѫi".bytes() {
+        println!("{}", b);
+    }
 }
 
 fn testing_vector() {
