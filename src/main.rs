@@ -1,10 +1,26 @@
+use std::collections::HashMap;
+
 fn main() {
     // testing_takes_ownership();
     //testing_refactoring_struct_tuples();
     //testing_dangle_error() 
     //testing_vector();
-    testing_strings();
+    //testing_strings();
     //testing_internal_representation_of_string();
+    testing_hash_map();
+}
+
+fn testing_hash_map() {
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+
+    //creating a hashmap from a vector of tuples
+    let teams = vec![String::from("Blue"), String::from("Red")];
+    let initial_scores = vec![10, 50];
+    let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
+    print!("{:?}", scores);
+
 }
 
 
