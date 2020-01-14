@@ -27,6 +27,15 @@ fn testing_hash_map() {
     ascores.insert(String::from("a"), 2);
     println!("{:?}", ascores);
 
+    let text = "What a wonderfull word in  a place!";
+    let mut mapp = HashMap::new();
+    for word in text.split_whitespace() {
+        //or_insert returns a mutable reference to the value, so I must first dereference the variable count with the asterisk
+        let count = mapp.entry(word).or_insert(0);
+        *count +=1;
+    }
+    println!("{:?}", mapp);
+
 
 }
 
