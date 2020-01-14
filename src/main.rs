@@ -20,6 +20,13 @@ fn testing_hash_map() {
     let initial_scores = vec![10, 50];
     let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
     print!("{:?}", scores);
+    
+    let mut ascores = HashMap::new();
+    ascores.insert(String::from("a"), 1);
+    //overwriting values
+    ascores.insert(String::from("a"), 2);
+    println!("{:?}", ascores);
+
 
 }
 
