@@ -30,6 +30,22 @@ fn testing_traits() {
         name: String,
     }
 
+    struct HalfElf {
+        name: String,
+    }
+
+    pub trait Elvish {}
+
+    impl Elvish for Elf {}
+
+    impl Elvish for HalfElf {}
+    //2- it accepts a generic type of character
+    //1 - but only accepts types that implement the Elvish Trait
+    //  1          2
+    pub fn speak_elvish<T: Elvish>(character: T) -> String {
+        String::from("yes")
+    }
+
     pub trait Constitution {
         fn constitution_bonus(&self) -> u8 {
             0
@@ -57,17 +73,37 @@ fn testing_traits() {
     };
 
     let my_half_orc = HalfOrc {
-        name: String::from("New HalfOrc")
+        name: String::from("New HalfOrc"),
     };
-
 
     let my_human = Human {
-        name: String::from("New Human")
+        name: String::from("New Human"),
     };
 
-    println!("Dwarf constitution_bonus is: {}", my_darf.constitution_bonus());
-    println!("HalfOrc constitution_bonus is: {}", my_half_orc.constitution_bonus());
-    println!("new Human constitution_bonus is: {}", my_human.constitution_bonus());
+    let my_elf = Elf {
+        name: String::from("NellElf"),
+    };
+
+    println!(
+        "Dwarf constitution_bonus is: {}",
+        my_darf.constitution_bonus()
+    );
+    println!(
+        "HalfOrc constitution_bonus is: {}",
+        my_half_orc.constitution_bonus()
+    );
+    println!(
+        "new Human constitution_bonus is: {}",
+        my_human.constitution_bonus()
+    );
+
+    println!(
+        "new Elf speaks elvish since it implements Elvish: {}",
+        speak_elvish(my_elf)
+    );
+    //it returns an error on compile
+    //    println!("HalfOrc speaks elvish due it not implements Elvish Trait? {}", speak_elvish(my_half_orc));
+    //Trait bounds allow a function to only accepts types that implement a certain trait
 }
 
 fn testing_hash_map() {
