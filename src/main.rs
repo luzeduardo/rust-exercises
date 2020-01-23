@@ -3,11 +3,71 @@ use std::collections::HashMap;
 fn main() {
     // testing_takes_ownership();
     //testing_refactoring_struct_tuples();
-    //testing_dangle_error() 
+    //testing_dangle_error()
     //testing_vector();
     //testing_strings();
     //testing_internal_representation_of_string();
-    testing_hash_map();
+    //testing_hash_map();
+    testing_traits();
+}
+
+// Traits and you a deep dive
+// https://www.youtube.com/watch?v=grU-4u0Okto&list=PLrCkIIapB5poSZ1_ylMGTCgHPPqn-mVoS&index=3
+fn testing_traits() {
+    struct Dwarf {
+        name: String,
+    }
+
+    struct Elf {
+        name: String,
+    }
+
+    struct HalfOrc {
+        name: String,
+    }
+
+    struct Human {
+        name: String,
+    }
+
+    pub trait Constitution {
+        fn constitution_bonus(&self) -> u8 {
+            0
+        }
+    }
+
+    impl Constitution for HalfOrc {
+        fn constitution_bonus(&self) -> u8 {
+            1
+        }
+    }
+
+    //implements and also rewrites the default value
+    impl Constitution for Dwarf {
+        fn constitution_bonus(&self) -> u8 {
+            2
+        }
+    }
+
+    //implements the trait but uses the default value
+    impl Constitution for Human {}
+
+    let my_darf = Dwarf {
+        name: String::from("NellDwarf"),
+    };
+
+    let my_half_orc = HalfOrc {
+        name: String::from("New HalfOrc")
+    };
+
+
+    let my_human = Human {
+        name: String::from("New Human")
+    };
+
+    println!("Dwarf constitution_bonus is: {}", my_darf.constitution_bonus());
+    println!("HalfOrc constitution_bonus is: {}", my_half_orc.constitution_bonus());
+    println!("new Human constitution_bonus is: {}", my_human.constitution_bonus());
 }
 
 fn testing_hash_map() {
@@ -20,7 +80,7 @@ fn testing_hash_map() {
     let initial_scores = vec![10, 50];
     let scores: HashMap<_, _> = teams.iter().zip(initial_scores.iter()).collect();
     print!("{:?}", scores);
-    
+
     let mut ascores = HashMap::new();
     ascores.insert(String::from("a"), 1);
     //overwriting values
@@ -32,17 +92,13 @@ fn testing_hash_map() {
     for word in text.split_whitespace() {
         //or_insert returns a mutable reference to the value, so I must first dereference the variable count with the asterisk
         let count = mapp.entry(word).or_insert(0);
-        *count +=1;
+        *count += 1;
     }
     println!("{:?}", mapp);
-
-
 }
-
 
 fn testing_internal_representation_of_string() {
     let len = String::from("Hola").len();
-
 }
 
 fn testing_strings() {
@@ -54,13 +110,13 @@ fn testing_strings() {
     let s1 = String::from("raise error if access by index");
     //let h = s1[0];
     //iterating of string with chars method
-    println!("iterating the string chars"); 
+    println!("iterating the string chars");
     for g in "Ola".chars() {
         println!("{}", g);
     }
 
     //iterating over the bytes
-    println!("iterating the bytes of the string in utf8"); 
+    println!("iterating the bytes of the string in utf8");
     for b in "Ѫi".bytes() {
         println!("{}", b);
     }
@@ -72,26 +128,25 @@ fn testing_vector() {
 
     println!("Simple vec {:?}", ve);
 
-    let mut v = vec![1 , 2 , 3];
+    let mut v = vec![1, 2, 3];
     v.push(4);
 
     println!("Vec content: {:?}", v);
     //both v and ve goes out of scope and is freed
 
-
     //reading elements
-    let v2 = vec![1,2,3,4,5];
-    let third: &i32 = &v2[2];//using ref to access can throw panic at runtime 
+    let v2 = vec![1, 2, 3, 4, 5];
+    let third: &i32 = &v2[2]; //using ref to access can throw panic at runtime
     println!("The third element is {}", third);
 
-    match v2.get(2) {//using get returns an Option<&T>
+    match v2.get(2) {
+        //using get returns an Option<&T>
         Some(third) => println!("Third is {}", third),
         None => println!("There is not third element"),
-    }//match handles gracefully a non existant key with None
-
+    } //match handles gracefully a non existant key with None
 
     //iterate over unmutable vec
-    let v3 = vec![ 1, 2, 3, 4, 5];
+    let v3 = vec![1, 2, 3, 4, 5];
     for i in &v3 {
         println!("{}", i);
     }
@@ -146,11 +201,12 @@ fn testing_dangle_error() {
     let _ref_to_noth = dangle_error();
 }
 
-//throws error because I am trying to return a ref to and deallocated point of memory. 
-fn dangle_error() -> String {//it returns a ref to a string
+//throws error because I am trying to return a ref to and deallocated point of memory.
+fn dangle_error() -> String {
+    //it returns a ref to a string
     let s = String::from("brilha brilha");
     // &s //it returns a ref to the string s but it is goes out of scope and is dropped
-        //One solution could be return s using move ownership out since nothing will be deallocated
+    //One solution could be return s using move ownership out since nothing will be deallocated
     s
 }
 
