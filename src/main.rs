@@ -8,7 +8,63 @@ fn main() {
     //testing_strings();
     //testing_internal_representation_of_string();
     //testing_hash_map();
-    testing_traits();
+    //testing_traits();
+    testing_trait_objects();
+}
+
+fn testing_trait_objects() {
+    struct Cantrip {}
+
+    struct Transmutation {}
+
+    struct Enchantment {}
+
+    struct Necromancy {}
+
+    pub trait Cast {
+        fn cast(&self);
+    }
+
+    impl Cast for Cantrip {
+        fn cast(&self) {}
+    }
+
+    impl Cast for Transmutation {
+        fn cast(&self) {}
+    }
+
+    impl Cast for Enchantment {
+        fn cast(&self) {}
+    }
+
+    impl Cast for Necromancy {
+        fn cast(&self) {}
+    }
+    // Defines a struct for spells which is a Vect of Box that is a Pointer in the Heap with that has a consistent size in memory no matter what size of the value on the Heap is of that generic type, in this case a type that implements Cast; a type that can be casted
+    struct Spellbook {
+        pub spells: Vec<Box<Cast>>,
+    }
+
+
+    impl Spellbook {
+        pub fn run(&self) {
+            for spell in self.spells.iter() {
+                spell.cast();
+            }
+        }
+    }
+
+
+    let spell_book = Spellbook{
+        spells: vec![
+            Box::new(Cantrip{}),
+            Box::new(Transmutation{}),
+            Box::new(Enchantment{}),
+            Box::new(Necromancy{})
+        ]
+    };
+
+    spell_book.run();
 }
 
 // Traits and you a deep dive
