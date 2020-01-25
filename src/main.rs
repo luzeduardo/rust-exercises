@@ -7,9 +7,9 @@ fn main() {
     //testing_vector();
     //testing_strings();
     //testing_internal_representation_of_string();
-    //testing_hash_map();
+    testing_hash_map();
     //testing_traits();
-    testing_trait_objects();
+    //testing_trait_objects();
 }
 
 fn testing_trait_objects() {
@@ -187,6 +187,25 @@ fn testing_hash_map() {
         *count += 1;
     }
     println!("{:?}", mapp);
+
+    //accessing values at a HashMap
+    let mut cores = HashMap::new();
+    cores.insert(String::from("blue"), 1);
+    cores.insert(String::from("red"), 2);
+    
+    //matching it
+    let color = String::from("red");
+    match cores.get(&color) {
+        Some(color) => println!("{}", color),
+        None => println!("Deu ruim")
+    }
+
+    //looping through
+    for(key,value) in &cores {
+        println!("{}: {}", key, value);
+    }
+
+
 }
 
 fn testing_internal_representation_of_string() {
