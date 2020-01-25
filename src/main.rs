@@ -385,6 +385,12 @@ fn testing_structs() {
     let integer = Point { x: 1, y:2 };
     let float = Point { x: 1.0, y: 2.1 };
 
+    struct AreaGenerics <T,U> {
+        x: T,
+        y: U
+    }
+    let integer_float = AreaGenerics { x: 1, y :4.5 };
+
     struct User {
         username: String,
         email: String,
