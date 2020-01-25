@@ -360,8 +360,6 @@ fn makes_copy(example_integer: u32) {
     println!("Inside makes_copy-> {}", example_integer);
 } // The example_integer goes out of the scope
 
-/*
-
 fn testing_owner_refs() {
     let s1 = gives_ownership();
     let s2 = String::from("hello");
@@ -380,6 +378,13 @@ fn testing_owner_refs() {
 }
 
 fn testing_structs() {
+    struct Point<T> {
+        x: T,
+        y: T
+    }
+    let integer = Point { x: 1, y:2 };
+    let float = Point { x: 1.0, y: 2.1 };
+
     struct User {
         username: String,
         email: String,
@@ -425,4 +430,3 @@ fn gives_ownership() -> String {
 fn takes_and_gives_back_ownership(a_string: String) -> String {
     a_string
 }
- */
