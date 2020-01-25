@@ -7,7 +7,7 @@ fn main() {
     //testing_vector();
     //testing_strings();
     //testing_internal_representation_of_string();
-    testing_hash_map();
+    //testing_hash_map();
     //testing_traits();
     //testing_trait_objects();
 }
@@ -65,6 +65,23 @@ fn testing_trait_objects() {
     };
 
     spell_book.run();
+
+    //fn is generic over type T with a parameter that is a slice
+    //of values of type T that return a value of type T
+    //this will not compile due it needs a trait to to enable comparisons
+    /*
+    fn largest<T>(list: &[T]) -> T {
+        let mut largest = list[0];
+        for &item in list.iter() {
+            if item > largest {
+                largest = item;
+            }
+        }
+        largest
+    }
+    let number_list = vec![2,34,55,32,1,2];
+    println!("Largest is: {}", largest(&number_list));
+    */
 }
 
 // Traits and you a deep dive
