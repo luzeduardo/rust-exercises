@@ -9,7 +9,7 @@ fn main() {
     //testing_internal_representation_of_string();
     //testing_hash_map();
     //testing_traits();
-    //testing_trait_objects();
+    testing_trait_objects();
 }
 
 fn testing_trait_objects() {
@@ -82,11 +82,34 @@ fn testing_trait_objects() {
     let number_list = vec![2,34,55,32,1,2];
     println!("Largest is: {}", largest(&number_list));
     */
+
+    struct PointerTrait<T> {
+        x: T,
+        y: T,
+    }
+
+    impl <T> PointerTrait<T> {
+        fn x(&self) -> &T {
+            &self.x
+        }
+    }
+    
+    impl PointerTrait<f32> {
+        fn distance_from_origin(&self) -> f32 {
+            (self.x.powi(2) + self.y.powi(2)).sqrt()
+        }
+    }
+
+    let pp = PointerTrait { x: 1, y: 2 };
+    let pp_distance = PointerTrait { x: 1.1, y: 4.0 };
+    println!("p.x is {}:", pp.x());
+    println!("Distance from origin of pp_distance is: {}", pp_distance.distance_from_origin());
 }
 
 // Traits and you a deep dive
 // https://www.youtube.com/watch?v=grU-4u0Okto&list=PLrCkIIapB5poSZ1_ylMGTCgHPPqn-mVoS&index=3
 fn testing_traits() {
+
     struct Dwarf {
         name: String,
     }
