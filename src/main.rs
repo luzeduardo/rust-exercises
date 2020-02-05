@@ -9,7 +9,49 @@ fn main() {
     //testing_internal_representation_of_string();
     //testing_hash_map();
     //testing_traits();
-    testing_trait_objects();
+    //testing_trait_objects();
+    testing_traits_summary();
+}
+
+fn testing_traits_summary() {
+    pub trait Summary {
+        fn summarize(&self) -> String;
+    }
+
+    pub struct NewsArticle {
+        pub headline: String,
+        pub location: String,
+        pub author: String,
+        pub content: String,
+    }
+
+    impl Summary for NewsArticle {
+        fn summarize(&self) -> String {
+            format!("{}, by {}({})", self.headline, self.author, self.location)
+        }
+    }
+
+    pub struct Tweet {
+        pub username: String,
+        pub content: String,
+        pub reply: bool,
+        pub retweet: bool,
+    }
+
+    impl Summary for Tweet {
+        fn summarize(&self) -> String {
+            format!("{}: {}", self.username, self.content)
+        }
+    }
+
+    let tweet = Tweet {
+        username: String::from("Lluo"),
+        content: String::from("every code must be used"),
+        reply: false,
+        retweet: false,
+    };
+
+    println!("1 new tweet: {}", tweet.summarize());
 }
 
 fn testing_trait_objects() {
@@ -45,7 +87,6 @@ fn testing_trait_objects() {
         pub spells: Vec<Box<Cast>>,
     }
 
-
     impl Spellbook {
         pub fn run(&self) {
             for spell in self.spells.iter() {
@@ -54,14 +95,13 @@ fn testing_trait_objects() {
         }
     }
 
-
-    let spell_book = Spellbook{
+    let spell_book = Spellbook {
         spells: vec![
-            Box::new(Cantrip{}),
-            Box::new(Transmutation{}),
-            Box::new(Enchantment{}),
-            Box::new(Necromancy{})
-        ]
+            Box::new(Cantrip {}),
+            Box::new(Transmutation {}),
+            Box::new(Enchantment {}),
+            Box::new(Necromancy {}),
+        ],
     };
 
     spell_book.run();
@@ -88,12 +128,12 @@ fn testing_trait_objects() {
         y: T,
     }
 
-    impl <T> PointerTrait<T> {
+    impl<T> PointerTrait<T> {
         fn x(&self) -> &T {
             &self.x
         }
     }
-    
+
     impl PointerTrait<f32> {
         fn distance_from_origin(&self) -> f32 {
             (self.x.powi(2) + self.y.powi(2)).sqrt()
@@ -103,13 +143,15 @@ fn testing_trait_objects() {
     let pp = PointerTrait { x: 1, y: 2 };
     let pp_distance = PointerTrait { x: 1.1, y: 4.0 };
     println!("p.x is {}:", pp.x());
-    println!("Distance from origin of pp_distance is: {}", pp_distance.distance_from_origin());
+    println!(
+        "Distance from origin of pp_distance is: {}",
+        pp_distance.distance_from_origin()
+    );
 }
 
 // Traits and you a deep dive
 // https://www.youtube.com/watch?v=grU-4u0Okto&list=PLrCkIIapB5poSZ1_ylMGTCgHPPqn-mVoS&index=3
 fn testing_traits() {
-
     struct Dwarf {
         name: String,
     }
@@ -232,20 +274,18 @@ fn testing_hash_map() {
     let mut cores = HashMap::new();
     cores.insert(String::from("blue"), 1);
     cores.insert(String::from("red"), 2);
-    
+
     //matching it
     let color = String::from("red");
     match cores.get(&color) {
         Some(color) => println!("{}", color),
-        None => println!("Deu ruim")
+        None => println!("Deu ruim"),
     }
 
     //looping through
-    for(key,value) in &cores {
+    for (key, value) in &cores {
         println!("{}: {}", key, value);
     }
-
-
 }
 
 fn testing_internal_representation_of_string() {
@@ -403,16 +443,16 @@ fn testing_owner_refs() {
 fn testing_structs() {
     struct Point<T> {
         x: T,
-        y: T
+        y: T,
     }
-    let integer = Point { x: 1, y:2 };
+    let integer = Point { x: 1, y: 2 };
     let float = Point { x: 1.0, y: 2.1 };
 
-    struct AreaGenerics <T,U> {
+    struct AreaGenerics<T, U> {
         x: T,
-        y: U
+        y: U,
     }
-    let integer_float = AreaGenerics { x: 1, y :4.5 };
+    let integer_float = AreaGenerics { x: 1, y: 4.5 };
 
     struct User {
         username: String,
@@ -441,7 +481,6 @@ fn first_word(s: &str) -> &str {
     }
     &s[..]
 }
-
 
 fn change(s: &mut String) {
     s.push_str(", Old");
