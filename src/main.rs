@@ -14,8 +14,22 @@ fn main() {
 }
 
 fn testing_traits_summary() {
+    pub trait Display {}
     pub trait Summary {
         fn summarize(&self) -> String;
+
+        fn notify(item: impl Summary) {
+            println!("Breaking news! {}", item.summarize());
+        }
+
+        fn notifyverbosemethodssignature<T: Summary>(item: T) {
+            println!("Breaking news! {}", item.summarize());
+        }
+
+        fn notifymultiple(item: impl Summary, item2: impl Summary) {}
+        fn notifymultipleverbose<T: Summary>(item: T, item2: T) {}
+        fn notifymultipleTraitsWithPLusSign(item: impl Summary + Display) {}
+        fn notifymultipleverbosetraits<T: Summary + Display>(item: T) {}
     }
 
     pub struct NewsArticle {
