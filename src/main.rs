@@ -139,8 +139,10 @@ fn testing_trait_objects() {
     //fn is generic over type T with a parameter that is a slice
     //of values of type T that return a value of type T
     //this will not compile due it needs a trait to to enable comparisons
-    /*
-    fn largest<T>(list: &[T]) -> T {
+
+    //adjusting largest function to implement Traits that support ordering and Copy that is used
+    //for i32 and chars to support move the value out of list[0] that is a reference
+    fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
         let mut largest = list[0];
         for &item in list.iter() {
             if item > largest {
@@ -151,7 +153,6 @@ fn testing_trait_objects() {
     }
     let number_list = vec![2,34,55,32,1,2];
     println!("Largest is: {}", largest(&number_list));
-    */
 
     struct PointerTrait<T> {
         x: T,
