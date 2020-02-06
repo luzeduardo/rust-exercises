@@ -14,6 +14,7 @@ fn main() {
 }
 
 fn testing_traits_summary() {
+    pub trait Debugger {}
     pub trait Display {}
     pub trait Summary {
         fn summarize(&self) -> String;
@@ -30,6 +31,11 @@ fn testing_traits_summary() {
         fn notifymultipleverbose<T: Summary>(item: T, item2: T) {}
         fn notifymultipleTraitsWithPLusSign(item: impl Summary + Display) {}
         fn notifymultipleverbosetraits<T: Summary + Display>(item: T) {}
+
+        fn notify_with_where_clause<T, U>(t: T, u: U)
+            where T: Display + Summary,
+                  U: Summary + Debugger
+        {}
     }
 
     pub struct NewsArticle {
