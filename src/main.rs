@@ -36,6 +36,16 @@ fn testing_traits_summary() {
             where T: Display + Summary,
                   U: Summary + Debugger
         {}
+
+    }
+
+    fn returns_summarizable() -> impl Summary {
+        Tweet {
+            username: String::from("house"),
+            content: String::from("of course, as you probably know"),
+            reply: false,
+            retweet: false,
+        }
     }
 
     pub struct NewsArticle {
